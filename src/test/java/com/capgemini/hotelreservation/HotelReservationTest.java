@@ -10,7 +10,7 @@ public class HotelReservationTest {
 	public void whenHotelAdded_ShouldReturnTrue()
     {	
     	HotelReservation hotelReservation = new HotelReservation();
-    	boolean isHotelAdded = hotelReservation.addHotel("Lakewood",110);
+    	boolean isHotelAdded = hotelReservation.addHotel("Lakewood",110,90);
         assertTrue(isHotelAdded);
     }
 
