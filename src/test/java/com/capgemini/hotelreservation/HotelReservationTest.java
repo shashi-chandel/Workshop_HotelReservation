@@ -20,44 +20,44 @@ public class HotelReservationTest {
 
 	@Test
 	public void whenHotelAdded_ShouldReturnTrue() {
-		boolean isHotelAdded = hotelReservation.addHotel("ABC", 110, 90, 3, 100, 200);
+		boolean isHotelAdded = hotelReservation.addHotel("ABC", 110, 90, 3,100,200);
 		assertTrue(isHotelAdded);
 	}
 
 	@Test
 	public void whenGivenDate_OneToSixOct2020_ShouldReturnLakewoodHotelCheapest() {
 		customer.setCustomerType("regular");
-		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("01-Oct-2020", "06-Oct-2020", customer);
+		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("01-Oct-2020", "06-Oct-2020",customer);
 		assertEquals("Lakewood", hotel.getHotelName());
 	}
 
 	@Test
 	public void whenGivenDate_Improper_ShouldReturnNull() {
 		customer.setCustomerType("regular");
-		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("06-Oct-2020", "01-Oct-2020", customer);
+		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("06-Oct-2020", "01-Oct-2020",customer);
 		assertEquals(null, hotel);
 	}
 
 	@Test
 	public void whenGivenDateRange_InvokingFindCheapestBestRatedHotel_ShouldReturnBetterRatedCheapestHotel() {
 		customer.setCustomerType("regular");
-		hotelReservation.addHotel("Cheapest Hotel", 110, 90, 5, 10, 20);
-		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("01-Oct-2020", "06-Oct-2020", customer);
+		hotelReservation.addHotel("Cheapest Hotel", 110, 90, 5,10,20);
+		Hotel hotel = hotelReservation.findCheapestBestRatedHotel("01-Oct-2020", "06-Oct-2020",customer);
 		assertEquals("Cheapest Hotel", hotel.getHotelName());
 	}
 
 	@Test
 	public void whenGivenDateRange_InvokingFindBestRatedHotel_ShouldReturnBestRatedHotel() {
 		customer.setCustomerType("regular");
-		hotelReservation.addHotel("Best Rated Hotel", 200, 150, 6, 50, 20);
-		Hotel hotel = hotelReservation.findBestRatedHotel("01-Oct-2020", "06-Oct-2020", customer);
+		hotelReservation.addHotel("Best Rated Hotel", 200, 150, 6,50,20);
+		Hotel hotel = hotelReservation.findBestRatedHotel("01-Oct-2020", "06-Oct-2020",customer);
 		assertEquals("Best Rated Hotel", hotel.getHotelName());
 	}
-
+	
 	@Test
 	public void whenGivenDateRange_FindCheapestBestRatedHotelForReward_ShouldReturnHotelWithRewardCustAmount() {
 		customer.setCustomerType("reward");
-		Hotel hotel = hotelReservation.findBestRatedHotel("01-Oct-2020", "06-Oct-2020", customer);
+		Hotel hotel = hotelReservation.findBestRatedHotel("01-Oct-2020", "06-Oct-2020",customer);
 		assertEquals(480, hotel.getTotalRate());
 	}
 }
