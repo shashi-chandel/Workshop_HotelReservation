@@ -14,9 +14,9 @@ public class HotelReservation {
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 
 	public boolean addHotel(String hotelName, int weekdayRegularCustRate, int weekendRegularCustRate, int rating,
-							int weekdayRewardCustRate, int weekendRewardCustRate) {
+			int weekdayRewardCustRate, int weekendRewardCustRate) {
 		Hotel hotel = new Hotel(hotelName, weekdayRegularCustRate, weekendRegularCustRate, rating,
-					  weekdayRewardCustRate, weekendRewardCustRate);
+				weekdayRewardCustRate, weekendRewardCustRate);
 		hotelList.add(hotel);
 		return true;
 	}
@@ -106,28 +106,28 @@ public class HotelReservation {
 			return null;
 	}
 
-	public Hotel findBestRatedHotel(String startD, String endD,Customer customer) {
+	public Hotel findBestRatedHotel(String startD, String endD, Customer customer) {
 		long noOfWeekdays = getNoOfWeekdays(startD, endD);
 		long noOfDays = getNoOfDays(startD, endD);
-        long noOfWeekends = noOfDays - noOfWeekdays;
-        
-        if(noOfDays>0){
-        	setTotalRateForHotels(noOfWeekdays,noOfWeekends,customer);
-	        List<Hotel> sortedHotelList = hotelList.stream().sorted(Comparator.comparing(Hotel::getRating).reversed()).collect(Collectors.toList());
-	        Hotel bestRatedHotel = sortedHotelList.get(0);
-	        int bestHotelRating= sortedHotelList.get(0).getRating();
-	        for(Hotel hotel:sortedHotelList) {
-	        	if(hotel.getRating()>=bestHotelRating) {
-	        		if(hotel.getTotalRate()<bestRatedHotel.getTotalRate())
-	        			bestRatedHotel = hotel;
-	        	}
-	        	else 
-	        		break;
-	        }
+		long noOfWeekends = noOfDays - noOfWeekdays;
+
+		if (noOfDays > 0) {
+			setTotalRateForHotels(noOfWeekdays, noOfWeekends, customer);
+			List<Hotel> sortedHotelList = hotelList.stream().sorted(Comparator.comparing(Hotel::getRating).reversed())
+					.collect(Collectors.toList());
+
+			Hotel bestRatedHotel = sortedHotelList.get(0);
+			int bestHotelRating = sortedHotelList.get(0).getRating();
+			for (Hotel hotel : sortedHotelList) {
+				if (hotel.getRating() >= bestHotelRating) {
+					if (hotel.getTotalRate() < bestRatedHotel.getTotalRate())
+						bestRatedHotel = hotel;
+				} else
+					break;
+			}
 			return bestRatedHotel;
-	    }
-        else
-        	return null;
+		} else
+			return null;
 	}
 
 	public static void main(String[] args) {
