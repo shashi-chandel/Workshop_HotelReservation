@@ -14,8 +14,8 @@ public class HotelReservation
 {
 	private List<Hotel> hotelList = new ArrayList<Hotel>();
 	
-	public boolean addHotel(String hotelName, int weekdayRegularCustRate,int weekendRegularCustRate) {
-		Hotel hotel = new Hotel(hotelName,weekdayRegularCustRate,weekendRegularCustRate);
+	public boolean addHotel(String hotelName, int weekdayRegularCustRate,int weekendRegularCustRate,int rating) {
+		Hotel hotel = new Hotel(hotelName,weekdayRegularCustRate,weekendRegularCustRate,rating);
 		hotelList.add(hotel);
 		return true;
 	}
@@ -37,11 +37,8 @@ public class HotelReservation
         Calendar endCal = Calendar.getInstance();
         endCal.setTime(endDate);
         long noOfWeekdays = 0;
-        if (startCal.getTimeInMillis() > endCal.getTimeInMillis()) {
-            startCal.setTime(endDate);
-            endCal.setTime(startDate);
-            
-        }
+        if (startCal.getTimeInMillis() < endCal.getTimeInMillis()) {
+        
         do {
             if (startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY && startCal.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
                 ++noOfWeekdays;
@@ -59,8 +56,12 @@ public class HotelReservation
         Hotel cheapestHotel = hotelList.stream().sorted(Comparator.comparing(Hotel::getTotalRate)).findFirst().orElse(null);
         
 		return cheapestHotel;
+        }
+        else 
+        	return null;
 	}
-
+	
+   
     public static void main( String[] args )
     {
     	Scanner sc = new Scanner(System.in);
@@ -68,10 +69,9 @@ public class HotelReservation
     	
         System.out.println( "Welcome to Hotel Reservation System Program" );
         
-        hotelReservation.addHotel("Lakewood", 110, 90);
-        hotelReservation.addHotel("Bridgewood", 160, 60);
-        hotelReservation.addHotel("Ridgewood", 220, 150);
-        //initialize
+        hotelReservation.addHotel("Lakewood", 110, 90, 3);
+        hotelReservation.addHotel("Bridgewood", 160, 60, 4);
+        hotelReservation.addHotel("Ridgewood", 220, 150, 5);
         
         System.out.println("Do you want to add a Hotel?(Y/N)");
         char choice = sc.nextLine().charAt(0);
@@ -82,7 +82,9 @@ public class HotelReservation
 	        int weekdayRegularCustRate = Integer.parseInt(sc.nextLine());
 	        System.out.println("Enter weekend regular customer rate:");
 	        int weekendRegularCustRate = Integer.parseInt(sc.nextLine());
-	        hotelReservation.addHotel(hotelName,weekdayRegularCustRate,weekendRegularCustRate);
+	        System.out.println("Enter Rating");
+	        int rating = Integer.parseInt(sc.nextLine());
+	        hotelReservation.addHotel(hotelName,weekdayRegularCustRate,weekendRegularCustRate,rating);
 	        System.out.println("Do you want to add another Hotel?(Y/N)");
 	        choice = sc.nextLine().charAt(0);
         }
@@ -93,6 +95,9 @@ public class HotelReservation
         System.out.println("Enter end date");
         String end = sc.nextLine();
         Hotel cheapestHotel = hotelReservation.findCheapestHotel(start,end);
-        System.out.println(cheapestHotel.getHotelName()+", Total rates :$"+cheapestHotel.getTotalRate());
+        if(cheapestHotel!=null)
+        	System.out.println(cheapestHotel.getHotelName()+", Total rates :$"+cheapestHotel.getTotalRate());
+        else 
+        	System.out.println("Improper dates entered");
     }
 }

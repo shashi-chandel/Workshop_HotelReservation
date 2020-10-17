@@ -5,11 +5,13 @@ public class Hotel {
 	private int weekdayRegularCustRate;
 	private int weekendRegularCustRate;
 	private long totalRate;
-
-	public Hotel(String hotelName, int weekdayRegularCustRate, int weekendRegularCustRate) {
+	private int rating;
+	
+	public Hotel(String hotelName,int weekdayRegularCustRate,int weekendRegularCustRate, int rating) {
 		this.hotelName = hotelName;
 		this.weekdayRegularCustRate = weekdayRegularCustRate;
 		this.weekendRegularCustRate = weekendRegularCustRate;
+		this.rating = rating;
 	}
 
 	public String getHotelName() {
@@ -27,7 +29,7 @@ public class Hotel {
 	public void setWeekdayRegularCustRate(int weekdayRegularCustRate) {
 		this.weekdayRegularCustRate = weekdayRegularCustRate;
 	}
-
+	
 	public int getWeekendRegularCustRate() {
 		return weekendRegularCustRate;
 	}
@@ -35,7 +37,7 @@ public class Hotel {
 	public void setWeekendRegularCustRate(int weekendRegularCustRate) {
 		this.weekendRegularCustRate = weekendRegularCustRate;
 	}
-
+	
 	public long getTotalRate() {
 		return totalRate;
 	}
@@ -43,4 +45,13 @@ public class Hotel {
 	public void setTotalRate(long totalRate) {
 		this.totalRate = totalRate;
 	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	
 }
